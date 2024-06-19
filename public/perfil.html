@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FBI System</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link
+      rel="axios"
+      href="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.2/axios.min.js"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <h1>&#128374; FBI System &#128374;</h1>
+    <div class="card bg-dark text-center">
+      <div class="card-body">
+        <form>
+          <h1>&#128372;&#128372;&#128372;</h1>
+          <h5 class="card-title text-center">Bienvenido agente !</h5>
+          <div class="row d-flex align-items-center mb-1">
+            <div class="col-12 m-auto bg-success">
+              <h3 id="email"></h3>
+            </div>
+          </div>
+          <div class="row d-flex align-items-center">
+            <div class="col-12">Volver al login:</div>
+          </div>
+          <a href="/" class="btn bg-primary my-3 text-light">Volver</a>
+        </form>
+      </div>
+    </div>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: black;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        height: 60vh;
+      }
+    </style>
+
+    <script>
+      const email = document.querySelector("#email");
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        alert("No existe usuario logueado, redirigiendo a login");
+        window.location.href = "/";
+      } else {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+
+        axios
+          .get("/api/perfil", config)
+          .then(({ data }) => {
+            email.textContent = data.msg.email;
+          })
+          .catch((error) => {
+            if (error.response) {
+              if (error.response.status === 401) {
+                alert("Token vencido o inválido, redirigiendo a login");
+                window.location.href = "/";
+              } else {
+                console.log(
+                  "Error en la respuesta del servidor:",
+                  error.response.status
+                );
+              }
+            }
+          });
+      }
+    </script>
+  </body>
+</html>
