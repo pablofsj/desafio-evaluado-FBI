@@ -10,10 +10,13 @@ CREATE TABLE fbi_agents (
 
 -----------------------------------------------------------------------------
 
-SEEDING DE DATOS:
+SEEDING DE DATOS (CREDENCIALES DE ACCESO A LA APLICACION CON LOS MISMOS DATOS):
 
 INSERT INTO fbi_agents 
 VALUES 
 ('who@fbi.com', 'me'),
 ('where@fbi.com', 'there'),
 ('how@fbi.com', 'exactly')
+
+-----------------------------------------------------------------------------
+
